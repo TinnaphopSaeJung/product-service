@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: product_service_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: PRODUCT
+    ports:
+      - "5432:5432"
+    volumes:
+      - product_service_pg_data:/var/lib/postgresql/data
+
+volumes:
+  product_service_pg_data:

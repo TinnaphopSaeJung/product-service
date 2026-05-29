@@ -1,0 +1,62 @@
+# =========================
+# Environment files
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Go build files
+# =========================
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go workspace
+go.work
+go.work.sum
+
+# =========================
+# Test / coverage
+# =========================
+coverage.out
+coverage.html
+*.cover
+*.prof
+
+# =========================
+# Temporary files
+# =========================
+tmp/
+temp/
+*.tmp
+*.log
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Docker / local data
+# =========================
+docker-data/
+postgres-data/
+pgdata/
+
+# =========================
+# Dependency cache / vendor
+# =========================
+vendor/
