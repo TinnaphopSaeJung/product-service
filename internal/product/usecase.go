@@ -23,7 +23,7 @@ func NewUsecase(repo Repository) Usecase {
 func (u *usecase) CreateProduct(ctx context.Context, req CreateProductRequest) (*ProductResponse, error) {
 	p := &domain.Product{
 		Name:        strings.TrimSpace(req.Name),
-		Description: req.Description,
+		Description: normalizeNullableString(req.Description),
 		SalePrice:   req.SalePrice,
 		Price:       req.Price,
 	}
@@ -44,4 +44,17 @@ func (u *usecase) CreateProduct(ctx context.Context, req CreateProductRequest) (
 		SalePrice:   createdProduct.SalePrice,
 		Price:       createdProduct.Price,
 	}, nil
+}
+
+func normalizeNullableString(value *string) *string {
+	if value == nil {
+		return nil
+	}
+
+	trimmed := strings.TrimSpace(*value)
+	if trimmed == "" {
+		return nil
+	}
+
+	return &trimmed
 }
