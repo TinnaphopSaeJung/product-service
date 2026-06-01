@@ -14,5 +14,5 @@ CREATE TABLE IF NOT EXISTS products (
         CHECK (sale_price IS NULL OR sale_price >= 0),
 
     CONSTRAINT products_sale_price_lte_price 
-        CHECK (sale_price IS NULL OR sale_price <= price)
+        CHECK (sale_price IS NULL OR sale_price < price)
 );

@@ -103,3 +103,15 @@ func TestValidateProduct_WhenSalePriceIsNil_ShouldReturnNil(t *testing.T) {
 
 	assert.NoError(t, err)
 }
+
+func TestValidateProduct_WhenSalePriceEqualPrice_ShouldReturnValidationError(t *testing.T) {
+	p := domain.Product{
+		Name:      "Keyboard",
+		Price:     1590,
+		SalePrice: float64Ptr(1590),
+	}
+
+	err := ValidateProduct(p)
+
+	assert.ErrorIs(t, err, apperrors.ErrValidation)
+}

@@ -2,12 +2,15 @@ package product
 
 import (
 	"context"
+	"fmt"
+	"product-service/internal/apperrors"
 	"product-service/internal/domain"
 	"strings"
 )
 
 type Usecase interface {
 	CreateProduct(ctx context.Context, req CreateProductRequest) (*ProductResponse, error)
+	PatchProduct(ctx context.Context, id int64, req PatchProductRequest) error
 }
 
 type usecase struct {
@@ -57,4 +60,49 @@ func normalizeNullableString(value *string) *string {
 	}
 
 	return &trimmed
+}
+
+func (u *usecase) PatchProduct(ctx context.Context, id int64, req PatchProductRequest) error {
+	if !req.HasAnyField() {
+		return fmt.Errorf("%w: at least one field is required", apperrors.ErrValidation)
+	}
+
+	existingProduct, err := u.repo.FindByID(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	if req.Name.IsSet {
+		if req.Name.Value == nil {
+			return fmt.Errorf("%w: name cannot be null", apperrors.ErrValidation)
+		}
+
+		existingProduct.Name = strings.TrimSpace(*req.Name.Value)
+	}
+
+	if req.Description.IsSet {
+		existingProduct.Description = normalizeNullableString(req.Description.Value)
+	}
+
+	if req.SalePrice.IsSet {
+		existingProduct.SalePrice = req.SalePrice.Value
+	}
+
+	if req.Price.IsSet {
+		if req.Price.Value == nil {
+			return fmt.Errorf("%w: price cannot be null", apperrors.ErrValidation)
+		}
+
+		existingProduct.Price = *req.Price.Value
+	}
+
+	if err := ValidateProduct(*existingProduct); err != nil {
+		return err
+	}
+
+	if err := u.repo.Update(ctx, existingProduct); err != nil {
+		return err
+	}
+
+	return nil
 }

@@ -9,14 +9,19 @@ const (
 
 type Response struct {
 	Successful bool        `json:"successful"`
-	ErrorCode  string      `json:"error_code"`
+	ErrorCode  *string     `json:"error_code"`
 	Data       interface{} `json:"data"`
+}
+
+type ResponseNoData struct {
+	Successful bool    `json:"successful"`
+	ErrorCode  *string `json:"error_code"`
 }
 
 func Success(data interface{}) Response {
 	return Response{
 		Successful: true,
-		ErrorCode:  "",
+		ErrorCode:  nil,
 		Data:       data,
 	}
 }
@@ -24,7 +29,21 @@ func Success(data interface{}) Response {
 func Error(errorCode string) Response {
 	return Response{
 		Successful: false,
-		ErrorCode:  errorCode,
+		ErrorCode:  &errorCode,
 		Data:       nil,
+	}
+}
+
+func SuccessNoData() ResponseNoData {
+	return ResponseNoData{
+		Successful: true,
+		ErrorCode:  nil,
+	}
+}
+
+func ErrorNoData(errorCode string) ResponseNoData {
+	return ResponseNoData{
+		Successful: false,
+		ErrorCode:  &errorCode,
 	}
 }

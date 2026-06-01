@@ -21,8 +21,8 @@ func ValidateProduct(p domain.Product) error {
 			return fmt.Errorf("%w: sale_price must be greater than or equal to zero", apperrors.ErrValidation)
 		}
 
-		if *p.SalePrice > p.Price {
-			return fmt.Errorf("%w: sale_price must not be greater than price", apperrors.ErrValidation)
+		if *p.SalePrice >= p.Price {
+			return fmt.Errorf("%w: sale_price must be less than price", apperrors.ErrValidation)
 		}
 	}
 
