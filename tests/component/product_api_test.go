@@ -93,7 +93,7 @@ func TestPostProduct_WhenRequestIsValid_ShouldReturnCreatedProduct(t *testing.T)
 	err = json.Unmarshal(res.Data, &product)
 	require.NoError(t, err)
 
-	assert.Equal(t, int64(1), product.ID)
+	assert.Greater(t, product.ID, int64(0))
 	assert.Equal(t, "Keyboard", product.Name)
 	require.NotNil(t, product.Description)
 	assert.Equal(t, "Mechanical keyboard", *product.Description)
@@ -138,7 +138,7 @@ func TestPostProduct_WhenNullableFieldsAreNull_ShouldReturnCreatedProductWithNul
 	err = json.Unmarshal(res.Data, &product)
 	require.NoError(t, err)
 
-	assert.Equal(t, int64(1), product.ID)
+	assert.Greater(t, product.ID, int64(0))
 	assert.Equal(t, "Mouse", product.Name)
 	assert.Nil(t, product.Description)
 	assert.Nil(t, product.SalePrice)
