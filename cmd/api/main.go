@@ -10,6 +10,11 @@ import (
 	"product-service/internal/database"
 )
 
+// @title API Document Product Service
+// @version 1.0
+// @description REST API service for managing products.
+// @host localhost:8080
+// @BasePath /
 func main() {
 	cfg := config.Load()
 

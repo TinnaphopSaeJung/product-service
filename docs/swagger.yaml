@@ -1,0 +1,163 @@
+basePath: /
+definitions:
+  product.CreateProductErrorSwaggerResponse:
+    properties:
+      data:
+        example: "null"
+        type: string
+      error_code:
+        example: VALIDATION_ERROR
+        type: string
+      successful:
+        example: false
+        type: boolean
+    type: object
+  product.CreateProductRequest:
+    properties:
+      description:
+        example: Mechanical keyboard
+        type: string
+      name:
+        example: Keyboard
+        type: string
+      price:
+        example: 1590
+        type: number
+      sale_price:
+        example: 1290
+        type: number
+    type: object
+  product.CreateProductSuccessSwaggerResponse:
+    properties:
+      data:
+        $ref: '#/definitions/product.ProductResponse'
+      error_code:
+        example: "null"
+        type: string
+      successful:
+        example: true
+        type: boolean
+    type: object
+  product.PatchProductErrorSwaggerResponse:
+    properties:
+      error_code:
+        example: VALIDATION_ERROR
+        type: string
+      successful:
+        example: false
+        type: boolean
+    type: object
+  product.PatchProductSuccessSwaggerResponse:
+    properties:
+      error_code:
+        example: "null"
+        type: string
+      successful:
+        example: true
+        type: boolean
+    type: object
+  product.PatchProductSwaggerRequest:
+    properties:
+      description:
+        example: Updated description
+        type: string
+      name:
+        example: Gaming Keyboard
+        type: string
+      price:
+        example: 1590
+        type: number
+      sale_price:
+        example: 1290
+        type: number
+    type: object
+  product.ProductResponse:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: number
+      sale_price:
+        type: number
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: REST API service for managing products.
+  title: API Document Product Service
+  version: "1.0"
+paths:
+  /product:
+    post:
+      consumes:
+      - application/json
+      description: Create a new product
+      parameters:
+      - description: Create product request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.CreateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/product.CreateProductSuccessSwaggerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/product.CreateProductErrorSwaggerResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/product.CreateProductErrorSwaggerResponse'
+      summary: Create product
+      tags:
+      - products
+  /product/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: Partially update product by ID. Only provided fields will be updated.
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Patch product request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.PatchProductSwaggerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.PatchProductSuccessSwaggerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/product.PatchProductErrorSwaggerResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/product.PatchProductErrorSwaggerResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/product.PatchProductErrorSwaggerResponse'
+      summary: Patch product
+      tags:
+      - products
+swagger: "2.0"

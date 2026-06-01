@@ -21,6 +21,17 @@ func NewHandler(usecase Usecase) *Handler {
 	}
 }
 
+// CreateProduct godoc
+// @Summary Create product
+// @Description Create a new product
+// @Tags products
+// @Accept json
+// @Produce json
+// @Param request body CreateProductRequest true "Create product request"
+// @Success 201 {object} CreateProductSuccessSwaggerResponse
+// @Failure 400 {object} CreateProductErrorSwaggerResponse
+// @Failure 500 {object} CreateProductErrorSwaggerResponse
+// @Router /product [post]
 func (h *Handler) CreateProduct(c *gin.Context) {
 	var req CreateProductRequest
 
@@ -49,6 +60,19 @@ func (h *Handler) CreateProduct(c *gin.Context) {
 	c.JSON(http.StatusCreated, response.Success(result))
 }
 
+// PatchProduct godoc
+// @Summary Patch product
+// @Description Partially update product by ID. Only provided fields will be updated.
+// @Tags products
+// @Accept json
+// @Produce json
+// @Param id path int true "Product ID"
+// @Param request body PatchProductSwaggerRequest true "Patch product request"
+// @Success 200 {object} PatchProductSuccessSwaggerResponse
+// @Failure 400 {object} PatchProductErrorSwaggerResponse
+// @Failure 404 {object} PatchProductErrorSwaggerResponse
+// @Failure 500 {object} PatchProductErrorSwaggerResponse
+// @Router /product/{id} [patch]
 func (h *Handler) PatchProduct(c *gin.Context) {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil || id <= 0 {

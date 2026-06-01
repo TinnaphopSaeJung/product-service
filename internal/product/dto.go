@@ -7,12 +7,11 @@ import (
 )
 
 type CreateProductRequest struct {
-	Name        string   `json:"name"`
-	Description *string  `json:"description"`
-	SalePrice   *float64 `json:"sale_price"`
-	Price       float64  `json:"price"`
+	Name        string   `json:"name" example:"Keyboard"`
+	Description *string  `json:"description" example:"Mechanical keyboard"`
+	SalePrice   *float64 `json:"sale_price" example:"1290"`
+	Price       float64  `json:"price" example:"1590"`
 }
-
 type ProductResponse struct {
 	ID          int64    `json:"id"`
 	Name        string   `json:"name"`

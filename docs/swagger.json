@@ -1,0 +1,241 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "REST API service for managing products.",
+        "title": "API Document Product Service",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/product": {
+            "post": {
+                "description": "Create a new product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "Create product",
+                "parameters": [
+                    {
+                        "description": "Create product request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/product.CreateProductRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/product.CreateProductSuccessSwaggerResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/product.CreateProductErrorSwaggerResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/product.CreateProductErrorSwaggerResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{id}": {
+            "patch": {
+                "description": "Partially update product by ID. Only provided fields will be updated.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "products"
+                ],
+                "summary": "Patch product",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Patch product request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/product.PatchProductSwaggerRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.PatchProductSuccessSwaggerResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/product.PatchProductErrorSwaggerResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/product.PatchProductErrorSwaggerResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/product.PatchProductErrorSwaggerResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "product.CreateProductErrorSwaggerResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "string",
+                    "example": "null"
+                },
+                "error_code": {
+                    "type": "string",
+                    "example": "VALIDATION_ERROR"
+                },
+                "successful": {
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "product.CreateProductRequest": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "Mechanical keyboard"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Keyboard"
+                },
+                "price": {
+                    "type": "number",
+                    "example": 1590
+                },
+                "sale_price": {
+                    "type": "number",
+                    "example": 1290
+                }
+            }
+        },
+        "product.CreateProductSuccessSwaggerResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/product.ProductResponse"
+                },
+                "error_code": {
+                    "type": "string",
+                    "example": "null"
+                },
+                "successful": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "product.PatchProductErrorSwaggerResponse": {
+            "type": "object",
+            "properties": {
+                "error_code": {
+                    "type": "string",
+                    "example": "VALIDATION_ERROR"
+                },
+                "successful": {
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "product.PatchProductSuccessSwaggerResponse": {
+            "type": "object",
+            "properties": {
+                "error_code": {
+                    "type": "string",
+                    "example": "null"
+                },
+                "successful": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "product.PatchProductSwaggerRequest": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "Updated description"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Gaming Keyboard"
+                },
+                "price": {
+                    "type": "number",
+                    "example": 1590
+                },
+                "sale_price": {
+                    "type": "number",
+                    "example": 1290
+                }
+            }
+        },
+        "product.ProductResponse": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "sale_price": {
+                    "type": "number"
+                }
+            }
+        }
+    }
+}
