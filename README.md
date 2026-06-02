@@ -67,7 +67,7 @@ product-service/
 │   │   ├── handler.go                      # HTTP handlers
 │   │   ├── repository.go                   # Repository interface
 │   │   ├── routes.go                       # Product route registration
-│   │   ├── swagger_dto.go                      # Swagger-only request/response models
+│   │   ├── swagger_dto.go                  # Swagger-only request/response models
 │   │   ├── usecase.go                      # Product business usecases
 │   │   ├── usecase_test.go                 # Usecase unit tests
 │   │   ├── validator.go                    # Product business validation
