@@ -54,7 +54,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: go test ./... -v -count=1
+    command: go test ./... -v -count=1 -p 1
 
 volumes:
   product_service_pg_data:
