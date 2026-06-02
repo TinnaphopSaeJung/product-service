@@ -130,26 +130,6 @@ swag init -g cmd/api/main.go
 
 ## API Endpoints
 
-### Health Check
-
-```http
-GET /health
-```
-
-#### Success Response
-
-```json
-{
-  "successful": true,
-  "error_code": null,
-  "data": {
-    "status": "ok"
-  }
-}
-```
-
----
-
 ## Create Product
 
 ```http
