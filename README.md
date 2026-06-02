@@ -130,7 +130,7 @@ swag init -g cmd/api/main.go
 
 ## API Endpoints
 
-## Create Product
+### Create Product
 
 ```http
 POST /product
